@@ -3,22 +3,22 @@
 namespace Framework\Twig;
 
 use Exception;
-use Grafikart\Csrf\CsrfMiddleware;
 use Twig\TwigFunction;
+use Framework\Middleware\CsrfGetCookieMiddleware;
 
 class CsrfExtension extends \Twig\Extension\AbstractExtension
 {
 
     /**
-     * @var CsrfMiddleware
+     * @var CsrfGetCookieMiddleware
      */
     private $middleware;
 
     /**
      * CsrfExtension constructor.
-     * @param CsrfMiddleware $middleware
+     * @param CsrfGetCookieMiddleware $middleware
      */
-    public function __construct(CsrfMiddleware $middleware)
+    public function __construct(CsrfGetCookieMiddleware $middleware)
     {
         $this->middleware = $middleware;
     }

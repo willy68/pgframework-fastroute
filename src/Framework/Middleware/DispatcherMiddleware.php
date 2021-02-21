@@ -3,7 +3,6 @@
 namespace Framework\Middleware;
 
 use Invoker\Invoker;
-use Mezzio\Router\Route;
 use GuzzleHttp\Psr7\Response;
 use Invoker\InvokerInterface;
 use Mezzio\Router\RouteResult;
@@ -122,7 +121,7 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
             if ($this->container->has('router.middlewares')) {
                 $router->middlewares($this->container->get('router.middlewares'));
             }
-            /**$route group stack second */
+            /** @var Route $route */
             if ($group = $route->getParentGroup()) {
                 foreach ($group->getMiddlewareStack() as $middleware) {
                     $router->middleware($middleware);
@@ -140,7 +139,7 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
     /**
      * Wrap$route callable controller in middleware
      *
-     * @param Route $route
+     * @param RouteResult $route
      * @param ContainerInterface $container
      * @param Invoker $invoker
      * @return MiddlewareInterface

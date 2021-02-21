@@ -2,10 +2,10 @@
 
 namespace Framework\Invoker\ParameterResolver;
 
-use ActiveRecord\RecordNotFound;
 use ReflectionNamedType;
 use ReflectionParameter;
 use ReflectionFunctionAbstract;
+use ActiveRecord\Exceptions\RecordNotFound;
 use Invoker\ParameterResolver\ParameterResolver;
 
 class ActiveRecordAnnotationConverter implements ParameterResolver
@@ -52,7 +52,9 @@ class ActiveRecordAnnotationConverter implements ParameterResolver
                 continue;
             }
 
+            /** @todo best annotation parse */
             $findByKey = array_key_first($this->findBy);
+            $include = $this->findBy['include'] ?? null;
 
             if ($key === $this->findBy[$findByKey]) {
                 /** @var ReflectionParameter[] $reflectionParameters */
@@ -80,10 +82,22 @@ class ActiveRecordAnnotationConverter implements ParameterResolver
 
                         if (class_exists($class) && in_array(\ActiveRecord\Model::class, class_parents($class))) {
                             if ($findByKey === 'id') {
-                                $obj = $class::find((int) $parameter);
+                                if (null === $include) {
+                                    $obj = $class::find((int) $parameter);
+                                }
+                                else {
+                                    $include = ['include' => [$include]];
+                                    $obj = $class::find((int) $parameter, $include);
+                                }
                             } else {
                                 $method = "find_by_" . $findByKey;
-                                $obj = $class::$method($parameter);
+                                if (null === $include) {
+                                    $obj = $class::$method($parameter);
+                                }
+                                else {
+                                    $include = ['include' => [$include]];
+                                    $obj = $class::$method($parameter, $include);
+                                }
                                 if (!$obj) {
                                     throw new RecordNotFound("Couldn't find $class with $findByKey=$parameter");
                                 }

@@ -15,7 +15,6 @@ use Mezzio\Router\RouteResult;
 use Mezzio\Router\RouterInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

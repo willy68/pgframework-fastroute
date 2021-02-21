@@ -5,6 +5,7 @@ namespace Framework\Controller;
 use ActiveRecord\Model;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use ActiveRecord\Exceptions\RecordNotFound;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AbstractApiController extends AbstractController
@@ -60,7 +61,7 @@ class AbstractApiController extends AbstractController
             } else {
                 $models = $this->model::all();
             }
-        } catch (\ActiveRecord\RecordNotFound $e) {
+        } catch (RecordNotFound $e) {
             return new Response(404);
         }
         if (empty($models)) {
@@ -86,7 +87,7 @@ class AbstractApiController extends AbstractController
         $id = $request->getAttribute('id', 0);
         try {
             $model = $this->model::find($id);
-        } catch (\ActiveRecord\RecordNotFound $e) {
+        } catch (RecordNotFound $e) {
             return new Response(404);
         }
         return new Response(
@@ -106,7 +107,7 @@ class AbstractApiController extends AbstractController
         $id = (int) $request->getAttribute('id', 0);
         try {
             $model = $this->model::find($id);
-        } catch (\ActiveRecord\RecordNotFound $e) {
+        } catch (RecordNotFound $e) {
             return new Response(404);
         }
         $params = $this->getParams($request, $this->attributes);
@@ -156,7 +157,7 @@ class AbstractApiController extends AbstractController
 
         try {
             $model = $this->model::find($id);
-        } catch (\ActiveRecord\RecordNotFound $e) {
+        } catch (RecordNotFound $e) {
             return new Response(404);
         }
 

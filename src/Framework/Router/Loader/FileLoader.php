@@ -4,10 +4,9 @@ namespace Framework\Router\Loader;
 
 use ReflectionMethod;
 use Mezzio\Router\Route;
-use Mezzio\Router\RouteGroup;
+use Mezzio\Router\RouteCollector;
 use Doctrine\Common\Annotations\Reader;
 use Framework\Router\Parser\PhpTokenParser;
-use Mezzio\Router\RouteCollector;
 
 class FileLoader extends ClassLoader
 {

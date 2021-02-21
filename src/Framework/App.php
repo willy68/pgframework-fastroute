@@ -14,7 +14,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Framework\Middleware\Stack\MiddlewareAwareStackTrait;
 use Mezzio\Router\RouteCollector;
-use Mezzio\Router\RouterInterface;
 
 /**
  * Application
@@ -61,7 +60,7 @@ class App implements RequestHandlerInterface
      */
     public function __construct(array $config)
     {
-        $this->config[] = dirname(__DIR__) . '/config/config.php';
+        $this->config[] = __DIR__ . '/Container/config/config.php';
         $this->config = \array_merge($this->config, $config);
         self::$app = $this;
     }
