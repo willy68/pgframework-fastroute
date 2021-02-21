@@ -1,6 +1,7 @@
 {
     "name": "willy68/pgframework-fastroute",
     "description": "Core du framework pgframework",
+    "type": "library",
     "authors": [
         {
             "name": "William Lety",
