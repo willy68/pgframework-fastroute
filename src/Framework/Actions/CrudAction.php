@@ -3,9 +3,9 @@
 namespace Framework\Actions;
 
 use ActiveRecord\Model;
-use Framework\Validator\Validator;
 use Framework\Database\Table;
 use Framework\Database\Hydrator;
+use Framework\Validator\Validator;
 use Mezzio\Router\RouterInterface;
 use Framework\Session\FlashService;
 use Psr\Http\Message\ResponseInterface;
