@@ -38,7 +38,6 @@ class PhpTokenParser
             }
 
             if (true === $class && \T_STRING === $token[0]) {
-
                 return $namespace . '\\' . $token[1];
             }
 

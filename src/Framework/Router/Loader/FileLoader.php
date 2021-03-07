@@ -6,7 +6,7 @@ use ReflectionMethod;
 use Mezzio\Router\Route;
 use Mezzio\Router\RouteCollector;
 use Doctrine\Common\Annotations\Reader;
-use Framework\Router\Parser\PhpTokenParser;
+use Framework\Parser\PhpTokenParser;
 
 class FileLoader extends ClassLoader
 {

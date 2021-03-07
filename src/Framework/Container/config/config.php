@@ -4,7 +4,6 @@ use Framework\Jwt\JwtMiddlewareFactory;
 use Psr\Container\ContainerInterface;
 use Tuupola\Http\Factory\ResponseFactory;
 use Grafikart\Csrf\CsrfMiddleware;
-use Middlewares\Whoops;
 use Framework\Twig\{
     CsrfExtension,
     FormExtension,
@@ -95,9 +94,6 @@ return [
     RouteCollector::class => \DI\autowire()
         ->constructorParameter("detectDuplicates", \DI\get('duplicate.route')),
     RendererInterface::class => factory(TwigRendererFactory::class),
-    Whoops::class => function (ContainerInterface $c) {
-        return new Whoops(null, new ResponseFactory());
-    },
     'database.sgdb' => Environnement::getEnv('DATABASE_SGDB', 'mysql'),
     'database.host' => Environnement::getEnv('DATABASE_HOST', 'localhost'),
     'database.user' => Environnement::getEnv('DATABASE_USER', 'root'),
