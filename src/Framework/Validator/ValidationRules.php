@@ -1,11 +1,8 @@
 <?php
 
-namespace Framework\Validator\Validation;
+namespace Framework\Validator;
 
 use Framework\App;
-use Framework\Validator\FilterInterface;
-use Framework\Validator\ValidationError;
-use Framework\Validator\ValidationInterface;
 
 /**
  * new ValidationRules( 'auteur', 'required|max:50|min:3|filter:trim');

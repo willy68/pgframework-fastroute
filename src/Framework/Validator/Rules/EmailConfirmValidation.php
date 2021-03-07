@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Validator\Validation;
+namespace Framework\Validator\Rules;
 
 use Framework\Validator\ValidationInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,8 +21,8 @@ class EmailConfirmValidation implements ValidationInterface
      */
     public function __construct(
         ServerRequestInterface $request,
-        string $fieldName = null,
-        string $error = null
+        ?string $fieldName = null,
+        ?string $error = null
     ) {
         if ($error !== null) {
             $this->error = $error;

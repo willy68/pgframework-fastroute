@@ -2,7 +2,6 @@
 
 use Framework\Jwt\JwtMiddlewareFactory;
 use Psr\Container\ContainerInterface;
-use Tuupola\Http\Factory\ResponseFactory;
 use Grafikart\Csrf\CsrfMiddleware;
 use Framework\Twig\{
     CsrfExtension,
@@ -24,7 +23,7 @@ use Framework\Environnement\Environnement;
 use Framework\Invoker\InvokerFactory;
 use Framework\Validator\Filter\StriptagsFilter;
 use Framework\Validator\Filter\TrimFilter;
-use Framework\Validator\Validation\{
+use Framework\Validator\Rules\{
     DateFormatValidation,
     EmailConfirmValidation,
     EmailValidation,

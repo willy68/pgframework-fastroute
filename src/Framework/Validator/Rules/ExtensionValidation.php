@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Validator\Validation;
+namespace Framework\Validator\Rules;
 
 use Psr\Http\Message\UploadedFileInterface;
 use Framework\Validator\ValidationInterface;

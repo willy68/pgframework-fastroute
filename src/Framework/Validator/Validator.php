@@ -1,9 +1,7 @@
 <?php
 
-namespace Framework;
+namespace Framework\Validator;
 
-use Framework\Validator\Validation\ValidationRules;
-use Framework\Validator\ValidationError;
 use PDO;
 
 class Validator
@@ -38,6 +36,7 @@ class Validator
 
     /**
      * Validator constructor.
+     * 
      * @param array $params
      */
     public function __construct(array $params)

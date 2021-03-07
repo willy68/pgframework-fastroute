@@ -3,7 +3,7 @@
 namespace Framework\Actions;
 
 use ActiveRecord\Model;
-use Framework\Validator;
+use Framework\Validator\Validator;
 use Framework\Database\Table;
 use Framework\Database\Hydrator;
 use Mezzio\Router\RouterInterface;
