@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Framework\Auth\Repository\UserRepositoryInterface;
 use Framework\Auth\Repository\TokenRepositoryInterface;
 
-class RememberMeDatabase extends AbstractRememberMe implements RememberMeInterface
+class RememberMeDatabase extends AbstractRememberMe
 {
 
     /**

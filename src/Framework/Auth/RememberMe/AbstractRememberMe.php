@@ -4,7 +4,7 @@ namespace Framework\Auth\RememberMe;
 
 use Framework\Auth\Repository\UserRepositoryInterface;
 
-abstract class AbstractRememberMe
+abstract class AbstractRememberMe implements RememberMeInterface
 {
     use RememberMeCookieAwareTraits;
 
