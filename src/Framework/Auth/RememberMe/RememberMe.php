@@ -10,7 +10,7 @@ use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\FigResponseCookies;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RememberMe extends AbstractRememberMe implements RememberMeInterface
+class RememberMe extends AbstractRememberMe
 {
 
     /**
