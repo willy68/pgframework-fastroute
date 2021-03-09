@@ -194,13 +194,16 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
             ): ResponseInterface {
                 
                 $callback = $this->result->getMatchedRoute()->getCallback();
+                $params = $this->result->getMatchedParams();
 
                 if ($this->container instanceof \DI\Container) {
                     $this->container->set(ServerRequestInterface::class, $request);
-                    $response = $this->getInvoker($this->container)->call($callback, $this->result->getMatchedParams());
                 } else {
-                    $response = call_user_func_array($callback, [$request]);
+                    $callback = $this->getCallback($callback);
+                    // Limitation: $request must be named "$request"
+                    $params = array_merge(["request" => $request] , $params);
                 }
+                $response = $this->getInvoker($this->container)->call($callback, $params);
         
                 if (is_string($response)) {
                     return new Response(200, [], $response);
@@ -218,7 +221,7 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
              * @param \Psr\Container\ContainerInterface $container
              * @return InvokerInterface
              */
-            public function getInvoker(ContainerInterface $container): InvokerInterface
+            protected function getInvoker(ContainerInterface $container): InvokerInterface
             {
                 if (!$this->invoker) {
                     $parameterResolver = new ResolverChain([
@@ -232,6 +235,30 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
                     $this->invoker = new Invoker($parameterResolver, $container);
                 }
                 return $this->invoker;
+            }
+
+            protected function getCallback($callback): callable
+            {
+                if (is_string($callback) && strpos($callback, '::') !== false) {
+                    $callback = explode('::', $callback, 2);
+                }
+        
+                if (is_array($callback) && isset($callback[0]) && is_string($callback[0])) {
+                    $callback = [$this->container->get($callback[0]), $callback[1]];
+                }
+        
+                if (is_string($callback) && method_exists($callback, '__invoke')) {
+                    $callback = $this->container->get($callback);
+                }
+        
+                if (is_string($callback)) {
+                    $callback = $this->container->get($callback);
+                }
+        
+                if (!is_callable($callback)) {
+                    throw new \RuntimeException("Le callback $callback n'est pas un callable");
+                } 
+                return $callback;
             }
         };
     }
