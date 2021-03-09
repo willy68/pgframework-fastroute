@@ -199,7 +199,6 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
                 if ($this->container instanceof \DI\Container) {
                     $this->container->set(ServerRequestInterface::class, $request);
                 } else {
-                    $callback = $this->getCallback($callback);
                     // Limitation: $request must be named "$request"
                     $params = array_merge(["request" => $request] , $params);
                 }
@@ -235,30 +234,6 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
                     $this->invoker = new Invoker($parameterResolver, $container);
                 }
                 return $this->invoker;
-            }
-
-            protected function getCallback($callback): callable
-            {
-                if (is_string($callback) && strpos($callback, '::') !== false) {
-                    $callback = explode('::', $callback, 2);
-                }
-        
-                if (is_array($callback) && isset($callback[0]) && is_string($callback[0])) {
-                    $callback = [$this->container->get($callback[0]), $callback[1]];
-                }
-        
-                if (is_string($callback) && method_exists($callback, '__invoke')) {
-                    $callback = $this->container->get($callback);
-                }
-        
-                if (is_string($callback)) {
-                    $callback = $this->container->get($callback);
-                }
-        
-                if (!is_callable($callback)) {
-                    throw new \RuntimeException("Le callback $callback n'est pas un callable");
-                } 
-                return $callback;
             }
         };
     }
