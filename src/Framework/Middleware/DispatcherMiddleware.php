@@ -192,7 +192,7 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
                 ServerRequestInterface $request,
                 RequestHandlerInterface $requestHandler
             ): ResponseInterface {
-                
+
                 $callback = $this->result->getMatchedRoute()->getCallback();
                 $params = $this->result->getMatchedParams();
 
@@ -202,6 +202,7 @@ class DispatcherMiddleware implements MiddlewareInterface, RequestHandlerInterfa
                     // Limitation: $request must be named "$request"
                     $params = array_merge(["request" => $request] , $params);
                 }
+
                 $response = $this->getInvoker($this->container)->call($callback, $params);
         
                 if (is_string($response)) {

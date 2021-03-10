@@ -18,7 +18,7 @@ class RouterMiddleware implements MiddlewareInterface
 
     /**
      * RouterMiddleware constructor.
-     * @param Router $router
+     * @param RouterInterface $router
      */
     public function __construct(RouterInterface $router)
     {
@@ -33,7 +33,7 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $next): ResponseInterface
     {
         $result = $this->router->match($request);
-        //dd($this->router);
+
         if (is_null($result)) {
             return $next->handle($request);
         }
